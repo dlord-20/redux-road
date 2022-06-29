@@ -1,7 +1,8 @@
 const initialWagonState = {
     supplies: 100,
     distance: 0,
-    days: 0
+    days: 0,
+    cash: 200
 };
 
 const reducer = (state = initialWagonState, action) => {
@@ -31,6 +32,27 @@ const reducer = (state = initialWagonState, action) => {
                 days: state.days + 1
             }
         }
+        case 'sell': {
+            return {
+                ...state,
+                supplies: state.supplies - 20,
+                cash: state.cash + 5
+            }
+        }
+        case 'buy': {
+            return {
+                ...state,
+                supplies: state.supplies + 25,
+                cash: state.cash - 15
+            }
+        }
+
+        case 'theft': {
+            return {
+                ...state,
+                cash: state.cash / 2
+            }
+        }
 
         default: {
             return state;
@@ -49,4 +71,6 @@ console.log(wagon);
 wagon = reducer(wagon, {type: 'travel', payload: 3})
 console.log(wagon);
 wagon = reducer(wagon, {type: 'travel', payload: 1})
+console.log(wagon);
+wagon = reducer(wagon, {type: 'theft'})
 console.log(wagon);
